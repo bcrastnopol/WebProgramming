@@ -1,0 +1,50 @@
+h1, h2 {
+	text-align: center;
+	font-style: italic;
+	color: green;
+}
+
+body {
+	background-color: #FFFF00;
+	background-image: url("moby_dick.jpg");
+	background-repeat:repeat-y;
+	color: blue;
+	font-family: "Comic Sans MS";
+}
+
+p {
+	margin-left: 25%;
+	border-left-width: 10px;
+	border-bottom-width: 10px;
+	border-right-width: 10px;
+	border-top-width: 10px;
+	border-style: dashed;
+	width: 50%;
+	text-align: center;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+#intro {
+	font-size: 18px;
+}
+
+#warning {
+	font-size: 36px;
+}
+
+.special_note {
+	color: red;
+}
+
+#lit_block {
+	color: aqua;
+}
+
+p#intro {
+	font-style: italic;	
+}
+
+a:hover {
+	font-size: 98px;
+}
