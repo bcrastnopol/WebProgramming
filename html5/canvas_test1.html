@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Canvas Demo</title>
+	<script type="text/javascript">
+		function draw()
+		{
+			var canvas = document.getElementById('simple');
+			// Check if canvas is supported on browser
+			if (canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+				ctx.fillStyle = "rgb(0, 255, 0)";
+				ctx.fillRect (50, 50, 55, 50);
+
+				ctx.fillStyle = "rgb(255, 0, 0)";
+				ctx.strokeStyle = '#FF0000';
+				ctx.beginPath();
+					ctx.moveTo(25, 25);
+					ctx.lineTo(105, 25);
+					ctx.lineTo(25, 105);
+					ctx.lineTo(25, 25);
+				ctx.stroke();
+
+			}
+			else {
+				alert('Sorry, canvas is not supported on your browser!');
+			}
+		}
+	</script>
+</head>
+<body onload="draw();">
+	<canvas id="simple" width="150" height="150"></canvas>
+</body>
+</html>

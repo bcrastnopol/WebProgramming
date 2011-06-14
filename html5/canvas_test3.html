@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Canvas Demo</title>
+	<script type="text/javascript">
+		function startAnimation()
+		{
+			draw();
+			setInterval(draw, 100); // draw refers to the function
+		}
+
+		function draw()
+		{
+			var canvas = document.getElementById('simple');
+			if (canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+				ctx.clearRect(0, 0, 500, 500);
+				var color1 = Math.floor(Math.random() * 255);
+				var color2 = Math.floor(Math.random() * 255);
+				var color3 = Math.floor(Math.random() * 255);
+				var x = Math.floor(Math.random() * 500);
+				var y = Math.floor(Math.random() * 500);
+				ctx.moveTo(x, y);
+				ctx.fillStyle = "rgb(" + color1 + ", " + color2 + ", " + color3 + ")";
+				var type = Math.floor(Math.random() * 2);
+
+				// Draw either a square or circle; random (x, y) and random color
+				if (type == 1) {
+					ctx.fillRect(x, y, 50, 50);
+				}
+				else {
+					ctx.beginPath();
+					ctx.arc(x, y, 25, 0, Math.PI * 2, true);
+					ctx.fill();
+				}
+			}
+			else {
+				alert('Sorry, canvas is not supported on your browser!');
+			}
+		}
+	</script>
+</head>
+<body onload="startAnimation();">
+	<canvas id="simple" width="500" height="500"></canvas>
+</body>
+</html>

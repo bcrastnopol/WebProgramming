@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Geolocation Example</title>
+		<script type="text/javascript">
+			function getMyLocation()
+			{
+				var lat = -99999;
+				var lng = -99999;
+				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
+					navigator.geolocation.getCurrentPosition(function(position) {
+						lat = position.coords.latitude;
+						lng = position.coords.longitude;
+						elem = document.getElementById("loc");
+						elem.innerHTML = "<h1>You are in " + lat + ", " + lng + "</h1>";
+						// Assume that a call to renderMap() is here...
+					});
+				}
+				else {
+					alert("Geolocation is not supported by your web browser.  What a shame!");
+				}
+			}
+		</script>
+	</head>
+	
+	<body onload="getMyLocation()">
+		<div id="loc"></div>
+	</body>
+</div>

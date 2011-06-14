@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Canvas Demo</title>
+	<script type="text/javascript">
+		function draw()
+		{
+			var canvas = document.getElementById('simple');
+			// Check if canvas is supported on browser
+			if (canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+				var color1 = Math.floor(Math.random() * 255);
+				var color2 = Math.floor(Math.random() * 255);
+				var color3 = Math.floor(Math.random() * 255);
+
+				// Save the default settings (e.g., transformations) now
+				ctx.save();
+
+				// Draw image; anything interesting with this?
+				var img = new Image();
+				img.src = 'nelson.jpg';
+				ctx.globalAlpha = 0.5; // Transparency
+				ctx.rotate(0.175); // Angle is in radians
+				ctx.drawImage(img, 100, 100);
+				//ctx.save();
+
+				// Draw rects
+				ctx.restore();
+				//ctx.globalAlpha = 1; // Resetting transparency
+				ctx.fillStyle = "rgb(" + color1 + ", " + color2 + ", " + color3 + ")";
+				//ctx.clearRect(75, 75, 25, 25);
+				ctx.fillRect(50, 50, 100, 75);
+				ctx.strokeRect(25, 25, 150, 125);
+				ctx.clearRect(75, 75, 25, 25);
+
+				// Draw circle
+				ctx.arc(300, 300, 50, 0, 260, true);
+				ctx.fill();
+
+				// Draw line
+				ctx.strokeStyle = '#FF0000';
+				ctx.lineWidth = 10;
+				ctx.lineCap = 'round';
+				ctx.beginPath();
+				ctx.moveTo(10, 400);
+				ctx.lineTo(400, 450);
+				ctx.stroke();
+
+				// Draw some text
+				ctx.fillStyle="rgb(0, 0, 0)";
+				ctx.fillText("Remember, remember, the fifth of November.", 10, 10);
+
+			}
+			else {
+				alert('Sorry, canvas is not supported on your browser!');
+			}
+		}
+	</script>
+</head>
+<body onload="draw();">
+	<canvas id="simple" width="500" height="500"></canvas>
+</body>
+</html>
