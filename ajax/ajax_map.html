@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>AJAX Map Example</title>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<link rel="stylesheet" href="gmap_api_example_style.css" type="text/css" />
+		
+		<script type="text/javascript">
+			var request = new XMLHttpRequest();
+			
+			function getLandmark()
+			{
+				// 1. Communicate with server-side script to get response data (i.e., the JSON)
+				request.open("get", "acme.php", true);
+				
+				// 2. When there is a readyState change (that is, hopefully, we get response data back from acme.php), go to the renderMap() function
+				request.onreadystatechange = renderMap;
+				
+				// 3. Fire up the server communication
+				request.send(null);
+			}
+			
+			function renderMap()
+			{
+				if (request.readyState == 4 && request.status == 200) {
+					// Okay so we got data, pull it out from the request XHR object
+					result = request.responseText;
+					parsed = JSON.parse(result);
+					landmarkLat = parsed['latitude'];
+					landmarkLng = parsed['longitude'];
+					landmarkName = parsed['note'];
+					landmark = new google.maps.LatLng(landmarkLat, landmarkLng);
+				
+					// Set up map
+					var myOptions = {
+						zoom: 13, // The larger the zoom number, the bigger the zoom
+						center: landmark,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+					
+					// Create the map in the "map_canvas" <div>
+					var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	
+					// Create a marker
+					var marker = new google.maps.Marker({
+						position: landmark,
+						title: landmarkName
+					});
+					marker.setMap(map);
+					
+					// This is a global info window...
+					var infowindow = new google.maps.InfoWindow();
+					
+					// Open info window on click of marker
+					google.maps.event.addListener(marker, 'click', function() {
+						infowindow.setContent(marker.title);
+						infowindow.open(map, marker);
+					});
+				}
+				else if (request.readyState == 4 && request.status != 200) {
+					elem = document.getElementById("map_canvas");
+					elem.innerHTML = "<h1>Something went terribly wrong!</h1>";
+				}
+			}
+		</script>
+	</head>
+	
+	<body onload="getLandmark()">
+		<div id="map_canvas"></div>
+	</body>
+</html>
